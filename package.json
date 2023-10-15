@@ -1,0 +1,45 @@
+{
+  "name": "type-decoder",
+  "version": "0.0.1",
+  "description": "A simple TS/JS library to decode values safely",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "rollup --config rollup.config.js",
+    "publish": "node --experimental-json-modules scripts/publish.js",
+    "format:all": "npx prettier --write .",
+    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "generate:doc": "npx typedoc src/index.ts "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sinha-sahil/type-decoder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sinha-sahil/type-decoder/issues"
+  },
+  "homepage": "https://github.com/sinha-sahil/type-decoder#readme",
+  "keywords": [
+    "types",
+    "decoders",
+    "typesafe",
+    "type-decoders",
+    "typescript",
+    "javascript"
+  ],
+  "author": "Sahil Sinha",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3",
+    "rollup": "^4.1.0",
+    "tslib": "^2.6.2",
+    "typedoc": "^0.25.2",
+    "typescript": "^5.2.2"
+  }
+}
