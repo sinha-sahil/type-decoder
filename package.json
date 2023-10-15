@@ -1,6 +1,6 @@
 {
   "name": "type-decoder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple TS/JS library to decode values safely",
   "main": "index.ts",
   "type": "module",
@@ -41,5 +41,11 @@
     "tslib": "^2.6.2",
     "typedoc": "^0.25.2",
     "typescript": "^5.2.2"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./index.js",
+    "./index.d.ts": "./index.d.ts",
+    "./types.d.ts": "./types.d.ts"
   }
 }
