@@ -1,6 +1,6 @@
 {
   "name": "type-decoder",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A simple TS/JS library to decode values safely",
   "main": "index.ts",
   "type": "module",
