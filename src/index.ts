@@ -1,5 +1,7 @@
 import type { JSONObject } from './types';
 
+export * from './types';
+
 // Unique string delimiter to denote a key was not found.
 // Added to avoid fallback as null which might cause adding adding additional null checks before using
 const errorDelimiter = '<!!error!!>';
