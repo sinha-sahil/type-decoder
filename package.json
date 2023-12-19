@@ -1,9 +1,15 @@
 {
   "name": "type-decoder",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "A simple TS/JS library to decode values safely",
-  "main": "index.ts",
+  "main": "./dist/index.js",
   "type": "module",
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*",
+    "scripts/postinstall.js"
+  ],
   "scripts": {
     "dev": "tsc --watch",
     "build": "rollup --config rollup.config.js",
@@ -41,11 +47,5 @@
     "tslib": "^2.6.2",
     "typedoc": "^0.25.2",
     "typescript": "^5.2.2"
-  },
-  "exports": {
-    "./package.json": "./package.json",
-    ".": "./index.js",
-    "./index.d.ts": "./index.d.ts",
-    "./types.d.ts": "./types.d.ts"
   }
 }
