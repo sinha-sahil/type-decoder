@@ -94,20 +94,24 @@ export function _decodeBoolean(value: unknown): boolean | undefined {
  * @description A function which attempts to decode any value to a generic arrays
  * @param value Value with unknown type
  * @param decoder A function which decodes the any data to the generic type passed, if decode fails returns null, This will be used to decode all elements of the any array passed
+ * @param strict A boolean which denotes if the decode should fail if any element of the array fails to decode
  * @returns Array of decoded elements if passed value was an array and elements were of generic type, returns null in case value passed was not array at all
  */
 export function decodeArray<ArrayElementType>(
   value: unknown,
-  decoder: (rawInput: unknown) => ArrayElementType | null
+  decoder: (rawInput: unknown) => ArrayElementType | null,
+  strict: boolean = true
 ): Array<ArrayElementType> | null {
   if (Array.isArray(value)) {
     const result: Array<ArrayElementType> = [];
-    value.forEach((currentElement: unknown) => {
+    for (const currentElement of value) {
       const decodedCurrentElement = decoder(currentElement);
-      if (decodedCurrentElement) {
+      if (decodedCurrentElement !== null) {
         result.push(decodedCurrentElement);
+      } else if (strict) {
+        return null;
       }
-    });
+    }
     return result;
   }
   return null;
