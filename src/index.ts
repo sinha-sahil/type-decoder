@@ -188,3 +188,12 @@ export function noErrorOrNullValues(
 export function isJSON(value: unknown): value is JSONObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
+
+/**
+ * @description Function to check if a object is a valid Record<string, unknown>
+ * @param value An unknown value
+ * @returns A boolean which denotes if the passed value is a valid Record<string, unknown>
+ */
+export function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
