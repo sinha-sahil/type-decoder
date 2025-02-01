@@ -1,6 +1,6 @@
 {
   "name": "type-decoder",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A simple TS/JS library to decode values safely",
   "main": "./dist/index.js",
   "type": "module",
@@ -37,15 +37,15 @@
   "author": "Sahil Sinha",
   "license": "ISC",
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.5",
-    "@typescript-eslint/eslint-plugin": "^6.7.5",
-    "@typescript-eslint/parser": "^6.7.5",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.0.0",
-    "prettier": "^3.0.3",
-    "rollup": "^4.1.0",
-    "tslib": "^2.6.2",
-    "typedoc": "^0.25.2",
-    "typescript": "^5.2.2"
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "prettier": "^3.4.2",
+    "rollup": "^4.34.0",
+    "tslib": "^2.8.1",
+    "typedoc": "^0.27.6",
+    "typescript": "^5.7.3"
   }
 }
