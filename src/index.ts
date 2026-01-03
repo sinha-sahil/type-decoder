@@ -117,6 +117,34 @@ export function decodeArray<ArrayElementType>(
   return null;
 }
 
+/**
+ * @description A function which attempts to decode any value to a generic arrays
+ * @param value Value with unknown type
+ * @param decoder A function which decodes the any data to the generic type passed, if decode fails returns undefined, This will be used to decode all elements of the any array passed
+ * @param strict A boolean which denotes if the decode should fail if any element of the array fails to decode
+ * @returns Array of decoded elements if passed value was an array and elements were of generic type, returns undefined in case value passed was not array at all
+ */
+export function _decodeArray<ArrayElementType>(
+  value: unknown,
+  decoder: (rawInput: unknown) => ArrayElementType | undefined,
+  strict: boolean = true
+): Array<ArrayElementType> | undefined {
+  if (Array.isArray(value)) {
+    const result: Array<ArrayElementType> = [];
+    for (const currentElement of value) {
+      const decodedCurrentElement = decoder(currentElement);
+      if (typeof decodedCurrentElement !== 'undefined') {
+        result.push(decodedCurrentElement);
+      } else if (strict) {
+        return undefined;
+      }
+    }
+    return result;
+  }
+  return undefined;
+}
+
+
 export function castArray<FromType, ToType>(
   fromArray: Array<FromType>,
   converter: (from: FromType) => ToType
