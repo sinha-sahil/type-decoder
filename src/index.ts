@@ -144,7 +144,6 @@ export function _decodeArray<ArrayElementType>(
   return undefined;
 }
 
-
 export function castArray<FromType, ToType>(
   fromArray: Array<FromType>,
   converter: (from: FromType) => ToType
@@ -183,6 +182,12 @@ export function _decodeDate(rawInput: unknown): Date | undefined {
   }
   return undefined;
 }
+
+export function decodeUnknown(value: unknown): unknown {
+  return value;
+}
+
+export const _decodeUnknown = decodeUnknown;
 
 /**
  * @description Check if a JSON has no null and no error delimiter string

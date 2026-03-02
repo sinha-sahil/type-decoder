@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - release
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: publish-env
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+
+      - name: Extract version from package.json
+        id: version
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Check if tag already exists
+        id: tag_check
+        run: |
+          git fetch --tags
+          if git tag -l "v${{ steps.version.outputs.VERSION }}" | grep -q .; then
+            echo "EXISTS=true" >> $GITHUB_OUTPUT
+          else
+            echo "EXISTS=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        if: steps.tag_check.outputs.EXISTS == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup pnpm
+        if: steps.tag_check.outputs.EXISTS == 'false'
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        if: steps.tag_check.outputs.EXISTS == 'false'
+        run: pnpm install
+
+      - name: Build
+        if: steps.tag_check.outputs.EXISTS == 'false'
+        run: pnpm run build
+
+      - name: Publish to npm
+        if: steps.tag_check.outputs.EXISTS == 'false'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create tag and GitHub Release
+        if: steps.tag_check.outputs.EXISTS == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.VERSION }}
+          name: Release ${{ steps.version.outputs.VERSION }}
+          generate_release_notes: true
+
+      - name: Bump version for next release
+        if: steps.tag_check.outputs.EXISTS == 'false'
+        run: |
+          npm version patch --no-git-tag-version
+          NEXT_VERSION=$(node -p "require('./package.json').version")
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git commit -m "chore: bump version to $NEXT_VERSION [skip ci]"
+          git push
